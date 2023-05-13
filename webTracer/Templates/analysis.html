@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='analysis.css') }}">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#saveButton").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/save-readings",
+                    dataType: "json",
+                    success: function(response) {
+                        alert(response.message);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        alert("An error occurred while saving the readings.");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/analysis">Analysis</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Measurement</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Temperature</td>
+                    <td>{{ temperature }}</td>
+                </tr>
+                <tr>
+                    <td>Humidity</td>
+                    <td>{{ humidity }}</td>
+                </tr>
+                <tr>
+                    <td>Propane</td>
+                    <td>{{ gas1 }}</td>
+                </tr>
+                <tr>
+                    <td>CO</td>
+                    <td>{{ gas2 }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="saveButton" class="save-button">Save Readings</button>
+    </div>
+
+    <img src="/images/temperature_plot.png" alt="Temperature Plot" style="width:24.5%;height:24.5%;">
+    <img src="/images/humidity_plot.png" alt="Humidity Plot" style="width:25%;height:25%;">
+    <img src="/images/gas1_plot.png" alt="Gas 1 Plot" style="width:25%;height:25%;">
+    <img src="/images/gas2_plot.png" alt="Gas 2 Plot" style="width:24.5%;height:24.5%;">
+
+</body>
+</html>

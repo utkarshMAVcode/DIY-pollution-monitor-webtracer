@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <form method="POST" action="/">
+            <label for="input_string">Enter the 8-digit code generated via SMS:</label>
+            <input type="text" id="input_string" name="input_string" required>
+            <button type="submit">Submit</button>
+        </form>
+        
+        {% if error_message %}
+        <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+    </div>
+
+    {% if temperature and humidity and gas1 and gas2 %}
+    <div class="results-table">
+        <h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Results</h2>
+        <table>
+            <tr>
+                <th>Measurement</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Temperature</td>
+                <td>{{ temperature }}</td>
+            </tr>
+            <tr>
+                <td>Humidity</td>
+                <td>{{ humidity }}</td>
+            </tr>
+            <tr>
+                <td>Propane</td>
+                <td>{{ gas1 }}</td>
+            </tr>
+            <tr>
+                <td>CO</td>
+                <td>{{ gas2 }}</td>
+            </tr>
+        </table>
+      
+        
+        <div class="button-container">
+            <a href="/analysis" class="btn-analysis">Click here for Analysis</a>
+        </div>
+
+        
+    {% endif %}
+
+    
+</div>
+{% endblock %}
